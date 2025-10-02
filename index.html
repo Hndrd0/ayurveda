@@ -1,4 +1,256 @@
-<>
-<h1>
-  WElcoming page
-</h1>
+<!doctype html>
+<!--
+  whatsapp-catalog-clone.html
+  A single-file HTML5 clone of the WhatsApp Business Catalog UI (visual/UX clone only).
+  - Static product data rendered from a JS array
+  - Responsive grid of product cards
+  - Product modal with image carousel, price, description and "Message seller" button
+  - Search, category filter, simple sorting
+
+  NOTE: This is a visual/UX clone for personal use. Do not use WhatsApp trademarked assets
+  (logo, exact branding) in production. Replace placeholder images with your own assets.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Catalog — Business Clone</title>
+  <style>
+    :root{
+      --bg: #f6f7f8;
+      --card: #fff;
+      --muted:#6b7280;
+      --accent:#25D366; /* whatsapp-ish green accent */
+      --glass: rgba(255,255,255,0.6);
+      --shadow: 0 6px 20px rgba(16,24,40,0.08);
+      --radius: 12px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      background: linear-gradient(180deg, #eef2f5 0%, var(--bg) 100%);
+      color:#111827;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:20px;
+    }
+
+    /* Top bar */
+    .topbar{
+      display:flex;align-items:center;gap:12px;max-width:1100px;margin:0 auto 18px;
+    }
+    .app-badge{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#1aa856);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;box-shadow:var(--shadow)
+    }
+    .title{
+      font-size:18px;font-weight:600;line-height:1;color:#0f172a
+    }
+    .subtitle{color:var(--muted);font-size:13px}
+
+    /* Controls */
+    .controls{display:flex;gap:8px;margin:14px auto 22px;max-width:1100px}
+    .search{flex:1;display:flex;align-items:center;background:var(--card);padding:10px;border-radius:999px;box-shadow:var(--shadow)}
+    .search input{border:0;outline:0;font-size:14px;width:100%;background:transparent}
+    .select, .sort{background:var(--card);padding:8px 12px;border-radius:10px;box-shadow:var(--shadow);font-size:14px}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;max-width:1100px;margin:0 auto}
+    .card{background:var(--card);border-radius:14px;padding:10px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;overflow:hidden}
+    .thumb{position:relative;border-radius:10px;overflow:hidden;height:160px;background:#eee}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .price-tag{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,0.7);color:#fff;padding:6px 8px;border-radius:8px;font-weight:700;font-size:14px}
+    .card h3{margin:0;font-size:15px}
+    .meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
+    .badge{background:var(--glass);padding:6px 8px;border-radius:999px;border:1px solid rgba(0,0,0,0.04);font-size:12px}
+
+    /* Floating action */
+    .fab{position:fixed;right:24px;bottom:24px;background:var(--accent);color:white;padding:14px 16px;border-radius:999px;box-shadow:0 12px 30px rgba(37,211,102,0.24);font-weight:700;border:0;cursor:pointer}
+
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:40;}
+    .modal{width:100%;max-width:920px;background:var(--card);border-radius:14px;padding:18px;box-shadow:0 20px 45px rgba(2,6,23,0.35);display:flex;gap:20px}
+    .modal-left{flex:1}
+    .modal-right{width:360px;display:flex;flex-direction:column;gap:12px}
+    .carousel{height:360px;border-radius:10px;overflow:hidden;background:#000}
+    .carousel img{width:100%;height:100%;object-fit:cover}
+    .thumbs{display:flex;gap:8px;margin-top:8px}
+    .thumbs img{width:56px;height:44px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
+    .thumbs img.active{border-color:var(--accent)}
+    .product-title{font-size:20px;margin:0}
+    .product-price{font-size:18px;font-weight:700;color:var(--accent)}
+    .desc{color:var(--muted);font-size:14px}
+    .msg-btn{background:linear-gradient(90deg,var(--accent),#1aa856);color:#fff;border:0;padding:12px;border-radius:10px;font-weight:700;cursor:pointer}
+
+    /* small screens */
+    @media (max-width:840px){
+      .modal{flex-direction:column}
+      .modal-right{width:100%}
+      .carousel{height:260px}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="app-badge">BC</div>
+    <div>
+      <div class="title">Business Catalog</div>
+      <div class="subtitle">Products — your shop, delivered as a responsive HTML clone</div>
+    </div>
+  </div>
+
+  <div class="controls" style="max-width:1100px;margin:0 auto 22px;">
+    <div class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="margin-right:8px;opacity:.6"><path d="M21 21l-4.35-4.35" stroke="#111827" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="11" cy="11" r="6" stroke="#111827" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle></svg>
+      <input id="q" placeholder="Search products, e.g. 'mug'" />
+    </div>
+    <select id="category" class="select">
+      <option value="all">All categories</option>
+    </select>
+    <select id="sort" class="sort">
+      <option value="default">Sort: Featured</option>
+      <option value="price-asc">Price ↑</option>
+      <option value="price-desc">Price ↓</option>
+      <option value="name">Name</option>
+    </select>
+  </div>
+
+  <main class="grid" id="grid"></main>
+
+  <button class="fab" id="openCatalog">+ Add product</button>
+
+  <!-- Modal placeholder -->
+  <div id="modalRoot"></div>
+
+  <script>
+    // -- simple product dataset -- edit this array to add/remove products
+    const products = [
+      {id:1,title:'Classic Ceramic Mug',price:249,unit:'INR',category:'Home',desc:'11oz ceramic mug with glossy finish. Dishwasher safe.',images:["https://picsum.photos/seed/mug1/900/600","https://picsum.photos/seed/mug2/900/600"],badge:'New'},
+      {id:2,title:'Canvas Tote Bag',price:399,unit:'INR',category:'Accessories',desc:'Durable canvas tote for daily use. 15L capacity.',images:["https://picsum.photos/seed/tote1/900/600"],badge:''},
+      {id:3,title:'Cedar Wood Frame',price:999,unit:'INR',category:'Home',desc:'Hand-finished cedar wood photo frame, 8x10 inches.',images:["https://picsum.photos/seed/frame1/900/600","https://picsum.photos/seed/frame2/900/600"],badge:'Limited'},
+      {id:4,title:'Eco Notebook',price:159,unit:'INR',category:'Stationery',desc:'Recycled paper notebook with 120 pages.',images:["https://picsum.photos/seed/notebook1/900/600"],badge:''},
+      {id:5,title:'Vintage Lamp',price:2499,unit:'INR',category:'Home',desc:'Retro tabletop lamp with warm LED bulb included.',images:["https://picsum.photos/seed/lamp1/900/600","https://picsum.photos/seed/lamp2/900/600","https://picsum.photos/seed/lamp3/900/600"],badge:'Hot'},
+      {id:6,title:'Handmade Soap Set',price:349,unit:'INR',category:'Personal Care',desc:'Natural soap set (3 bars) scented with essential oils.',images:["https://picsum.photos/seed/soap1/900/600"],badge:''}
+    ];
+
+    // build category select dynamically
+    const categoryEl = document.getElementById('category');
+    const cats = ['all', ...new Set(products.map(p=>p.category))];
+    cats.forEach(c=>{
+      if(c==='all') return; // keep only option already added
+    });
+    // fill categories
+    cats.forEach(c=>{
+      const opt = document.createElement('option');opt.value=c;opt.textContent=c;categoryEl.appendChild(opt);
+    });
+
+    // rendering
+    const grid = document.getElementById('grid');
+    function money(p){return p.unit+' '+p.price}
+    function render(items){
+      grid.innerHTML='';
+      items.forEach(prod=>{
+        const el = document.createElement('article');el.className='card';
+        el.innerHTML = `
+          <div class="thumb">
+            <img src="${prod.images[0]}" loading="lazy" alt="${escapeHtml(prod.title)}"/>
+            <div class="price-tag">${money(prod)}</div>
+          </div>
+          <div>
+            <h3>${escapeHtml(prod.title)}</h3>
+            <div class="meta">
+              <div class="badge">${escapeHtml(prod.category)}</div>
+              <div style="display:flex;gap:8px;align-items:center"><div style="color:var(--muted);font-size:13px">${prod.badge||''}</div><button class="view" data-id="${prod.id}" style="background:transparent;border:0;color:var(--accent);font-weight:700;cursor:pointer">View</button></div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(el);
+      });
+      // attach listeners
+      grid.querySelectorAll('.view').forEach(btn=>btn.addEventListener('click',e=>{
+        const id = Number(e.currentTarget.dataset.id);openModal(id);
+      }));
+    }
+
+    // search / filter
+    document.getElementById('q').addEventListener('input',applyFilters);
+    document.getElementById('category').addEventListener('change',applyFilters);
+    document.getElementById('sort').addEventListener('change',applyFilters);
+
+    function applyFilters(){
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      const c = document.getElementById('category').value;
+      const sort = document.getElementById('sort').value;
+      let out = products.filter(p=>{
+        const okQ = !q || (p.title+" "+p.desc+" "+p.category).toLowerCase().includes(q);
+        const okC = c==='all' || p.category===c;
+        return okQ && okC;
+      });
+      if(sort==='price-asc') out.sort((a,b)=>a.price-b.price);
+      if(sort==='price-desc') out.sort((a,b)=>b.price-a.price);
+      if(sort==='name') out.sort((a,b)=>a.title.localeCompare(b.title));
+      render(out);
+    }
+
+    // open modal
+    function openModal(id){
+      const p = products.find(x=>x.id===id); if(!p) return;
+      const root = document.getElementById('modalRoot');
+      root.innerHTML = '';
+      const bd = document.createElement('div');bd.className='modal-backdrop';
+      bd.innerHTML = `
+        <div class="modal" role="dialog" aria-modal="true">
+          <div class="modal-left">
+            <div class="carousel" id="bigimg"><img src="${p.images[0]}" alt="${escapeHtml(p.title)}"></div>
+            <div class="thumbs" id="thumbRow"></div>
+          </div>
+          <div class="modal-right">
+            <div style="display:flex;justify-content:space-between;align-items:center"><h2 class="product-title">${escapeHtml(p.title)}</h2><div class="badge">${escapeHtml(p.category)}</div></div>
+            <div class="product-price">${money(p)}</div>
+            <div class="desc">${escapeHtml(p.desc)}</div>
+            <div style="flex:1"></div>
+            <div style="display:flex;gap:8px">
+              <button class="msg-btn" id="msgBtn">Message seller</button>
+              <button class="msg-btn" id="closeBtn" style="background:transparent;color:var(--accent);border:1px solid rgba(0,0,0,0.06)">Close</button>
+            </div>
+          </div>
+        </div>
+      `;
+      root.appendChild(bd);
+
+      // thumbs
+      const thumbRow = bd.querySelector('#thumbRow');
+      p.images.forEach((src,i)=>{
+        const im = document.createElement('img');im.src=src; if(i===0) im.className='active';
+        im.addEventListener('click',()=>{
+          bd.querySelector('#bigimg img').src = src;
+          thumbRow.querySelectorAll('img').forEach(x=>x.classList.remove('active'));im.classList.add('active');
+        });
+        thumbRow.appendChild(im);
+      });
+
+      // close handler
+      bd.addEventListener('click', (e)=>{ if(e.target===bd) root.innerHTML=''; });
+      bd.querySelector('#closeBtn').addEventListener('click', ()=>root.innerHTML='');
+
+      // message button opens WhatsApp intent (edit the number/message below)
+      bd.querySelector('#msgBtn').addEventListener('click', ()=>{
+        const phone = '919999999999'; // <-- replace with your number (country code + number)
+        const text = encodeURIComponent(`Hello, I'm interested in your product: ${p.title} (id:${p.id})`);
+        // wa.me link: will open WhatsApp if installed / mobile web
+        const url = `https://wa.me/${phone}?text=${text}`;
+        window.open(url,'_blank');
+      });
+    }
+
+    // initial render
+    render(products);
+
+    // add product floating button (demo: scroll to top and flash)
+    document.getElementById('openCatalog').addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});document.getElementById('q').focus();});
+
+    // escape helper
+    function escapeHtml(s){return (s||'').replace(/[&<>\"]/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));}
+  </script>
+</body>
+</html>
