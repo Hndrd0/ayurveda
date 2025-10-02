@@ -4,38 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Ayurvedic Catalog — Mobile Friendly</title>
+  <meta name="description" content="Explore our Ayurvedic medicines catalog including Chyawanprash, Ashwagandha, Triphala, and more. Herbal remedies for health, immunity, and wellness.">
   <meta name="theme-color" content="#25D366">
   <style>
-    :root{
-      --bg:#fbfcfb;
-      --card:#ffffff;
-      --muted:#6b7280;
-      --accent:#25D366;
-      --accent-2:#1aa856;
-      --glass:rgba(255,255,255,0.6);
-      --shadow:0 8px 24px rgba(2,6,23,0.06);
-      --radius:14px;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      font-size:16px;
-    }
-
-    /* page */
+    :root{--bg:#fbfcfb;--card:#ffffff;--muted:#6b7280;--accent:#25D366;--accent-2:#1aa856;--glass:rgba(255,255,255,0.6);--shadow:0 8px 24px rgba(2,6,23,0.06);--radius:14px;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;font-size:16px}
     html,body{height:100%;margin:0;background:linear-gradient(180deg,#f7faf6 0%,var(--bg) 100%);color:#0f172a;-webkit-font-smoothing:antialiased}
     .wrap{max-width:1100px;margin:0 auto;padding:18px}
-
-    /* header */
     header{display:flex;align-items:center;gap:12px}
     .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;box-shadow:var(--shadow)}
     h1{font-size:18px;margin:0}
     p.lead{margin:2px 0 0;color:var(--muted);font-size:13px}
-
-    /* controls */
     .controls{display:flex;gap:8px;margin:14px 0}
     .search{flex:1;display:flex;align-items:center;background:var(--card);padding:10px;border-radius:999px;box-shadow:var(--shadow)}
     .search input{border:0;outline:0;font-size:15px;width:100%;background:transparent}
     .select{background:var(--card);padding:8px 12px;border-radius:10px;box-shadow:var(--shadow);font-size:14px}
-
-    /* grid */
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
     .card{background:var(--card);border-radius:12px;padding:10px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;min-height:180px}
     .card .thumb{height:140px;border-radius:10px;overflow:hidden;background:#eee}
@@ -43,14 +25,8 @@
     .card h3{font-size:15px;margin:4px 0}
     .meta{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
     .price{font-weight:700;color:var(--accent)}
-
-    /* touch targets */
-    button, .btn{touch-action:manipulation;border:0;padding:10px 12px;border-radius:10px;cursor:pointer}
-
-    /* floating action (mobile-friendly placement) */
+    button,.btn{touch-action:manipulation;border:0;padding:10px 12px;border-radius:10px;cursor:pointer}
     .fab{position:fixed;right:14px;bottom:18px;background:var(--accent);color:white;padding:12px 14px;border-radius:999px;box-shadow:0 12px 30px rgba(37,211,102,0.18);font-weight:700;border:0;z-index:40}
-
-    /* modal as bottom-sheet on small screens */
     .modal-backdrop{position:fixed;inset:0;background:rgba(3,7,18,0.45);display:flex;align-items:flex-end;justify-content:center;padding:0 12px 12px;z-index:60}
     .modal{width:100%;max-width:920px;background:var(--card);border-radius:14px;padding:14px;box-shadow:0 20px 45px rgba(2,6,23,0.28);display:flex;gap:12px}
     .modal-left{flex:1}
@@ -60,169 +36,66 @@
     .thumbs img{width:72px;height:52px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
     .thumbs img.active{border-color:var(--accent)}
     .modal-right{width:320px;display:flex;flex-direction:column;gap:10px}
-
-    /* responsive tweaks */
-    @media (max-width:720px){
-      .wrap{padding:12px}
-      .controls{flex-direction:column;gap:10px}
-      .select{width:100%}
-      .grid{grid-template-columns:1fr;gap:10px}
-      .card .thumb{height:180px}
-      .modal{flex-direction:column;padding:12px;border-radius:12px}
-      .modal-right{width:100%}
-      .carousel{height:320px}
-      .thumbs img{width:64px;height:46px}
-      .logo{width:40px;height:40px}
-      h1{font-size:16px}
-      .fab{right:12px;bottom:12px;padding:10px 12px}
-    }
-
-    /* accessibility focus */
-    .card:focus-within{outline:3px solid rgba(37,211,102,0.14)}
-
-    /* subtle image placeholder loading effect */
-    img{background:linear-gradient(90deg,#f3f4f6,#e9eef0,#f3f4f6);}
+    @media (max-width:720px){.wrap{padding:12px}.controls{flex-direction:column;gap:10px}.select{width:100%}.grid{grid-template-columns:1fr;gap:10px}.card .thumb{height:180px}.modal{flex-direction:column;padding:12px;border-radius:12px}.modal-right{width:100%}.carousel{height:320px}.thumbs img{width:64px;height:46px}.logo{width:40px;height:40px}h1{font-size:16px}.fab{right:12px;bottom:12px;padding:10px 12px}}
+    .articles{margin-top:36px}
+    .article-card{background:var(--card);padding:12px;border-radius:12px;box-shadow:var(--shadow);margin-bottom:14px}
+    .article-card h4{margin:0 0 6px;font-size:16px;color:#111827}
+    .article-card p{margin:0;color:var(--muted);font-size:13px}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">AM</div>
-      <div>
-        <h1>Ayurvedic Catalog</h1>
-        <p class="lead">Herbal remedies & supplements — tap to view details</p>
-      </div>
-    </header>
-
-    <div class="controls" role="region" aria-label="search and filters">
-      <div class="search" role="search">
-        <input id="q" type="search" inputmode="search" placeholder="Search e.g. 'Amla'" aria-label="Search products" />
-      </div>
-      <select id="category" class="select" aria-label="Filter by category">
-        <option value="all">All categories</option>
-      </select>
-    </div>
-
-    <main class="grid" id="grid" aria-live="polite"></main>
-    <button class="fab" id="fab">+ Add</button>
+<div class="wrap">
+<header>
+  <div class="logo">AM</div>
+  <div>
+    <h1>Ayurvedic Catalog</h1>
+    <p class="lead">Herbal remedies & supplements — tap to view details</p>
   </div>
-
-  <div id="modalRoot"></div>
-
-  <script>
-    // Data - update with real products later
-    const products = [
-      {id:1,title:'Chyawanprash',price:350,unit:'INR',category:'Health Tonic',desc:'Boosts immunity & energy. Traditional chyawanprash mix.',images:["https://picsum.photos/seed/chyawanprash/1200/800"],badge:'Best Seller'},
-      {id:2,title:'Ashwagandha Capsules',price:499,unit:'INR',category:'Supplements',desc:'Supports stress relief & vitality.',images:["https://picsum.photos/seed/ashwagandha/1200/800"],badge:'Popular'},
-      {id:3,title:'Triphala Powder',price:199,unit:'INR',category:'Digestive Care',desc:'Promotes healthy digestion & detox.',images:["https://picsum.photos/seed/triphala/1200/800"],badge:''},
-      {id:4,title:'Neem Tablets',price:299,unit:'INR',category:'Skin Care',desc:'Natural support for skin health.',images:["https://picsum.photos/seed/neem/1200/800"],badge:''},
-      {id:5,title:'Amla Juice',price:220,unit:'INR',category:'Health Tonic',desc:'Vitamin C rich tonic for immunity.',images:["https://picsum.photos/seed/amla/1200/800"],badge:'New'},
-      {id:6,title:'Brahmi Syrup',price:280,unit:'INR',category:'Memory Booster',desc:'Supports memory & concentration.',images:["https://picsum.photos/seed/brahmi/1200/800"],badge:''}
-    ];
-
-    // build categories
-    const categoryEl = document.getElementById('category');
-    const cats = ['all', ...new Set(products.map(p=>p.category))];
-    cats.forEach(c=>{ if(c==='all') return; });
-    cats.forEach(c=>{ const opt=document.createElement('option'); opt.value=c; opt.textContent=c; categoryEl.appendChild(opt); });
-
-    const grid = document.getElementById('grid');
-    function money(p){return `${p.unit} ${p.price}`}
-
-    function render(items){
-      grid.innerHTML='';
-      items.forEach(prod=>{
-        const card = document.createElement('article'); card.className='card'; card.tabIndex=0;
-        card.innerHTML = `
-          <div class="thumb" aria-hidden="true"><img src="${prod.images[0]}" alt="${escapeHtml(prod.title)}" loading="lazy" decoding="async" /></div>
-          <div>
-            <h3>${escapeHtml(prod.title)}</h3>
-            <div class="meta"><div class="badge">${escapeHtml(prod.category)}</div><div class="price">${money(prod)}</div></div>
-            <p style="margin:8px 0 0;color:var(--muted);font-size:13px">${escapeHtml(truncate(prod.desc,80))}</p>
-            <div style="display:flex;gap:8px;margin-top:10px"><button class="btn view" data-id="${prod.id}" aria-label="View ${escapeHtml(prod.title)} details">View</button><button class="btn buy" data-id="${prod.id}" aria-label="Message seller about ${escapeHtml(prod.title)}">Message</button></div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-      attachCardListeners();
-    }
-
-    function attachCardListeners(){
-      grid.querySelectorAll('.view').forEach(b=>b.addEventListener('click',e=>openModal(Number(e.currentTarget.dataset.id))));
-      grid.querySelectorAll('.buy').forEach(b=>b.addEventListener('click',e=>messageSeller(Number(e.currentTarget.dataset.id))));
-    }
-
-    // search & filter
-    document.getElementById('q').addEventListener('input',applyFilters);
-    categoryEl.addEventListener('change',applyFilters);
-
-    function applyFilters(){
-      const q=document.getElementById('q').value.trim().toLowerCase();
-      const c=categoryEl.value;
-      const out = products.filter(p=>{
-        const okQ = !q || (p.title+" "+p.desc+" "+p.category).toLowerCase().includes(q);
-        const okC = c==='all' || p.category===c;
-        return okQ && okC;
-      });
-      render(out);
-    }
-
-    // modal and message functions
-    function openModal(id){
-      const p=products.find(x=>x.id===id); if(!p) return;
-      const root=document.getElementById('modalRoot'); root.innerHTML='';
-      const bd=document.createElement('div'); bd.className='modal-backdrop';
-      bd.innerHTML = `
-        <div class="modal" role="dialog" aria-modal="true" aria-label="Product details: ${escapeHtml(p.title)}">
-          <div class="modal-left">
-            <div class="carousel"><img src="${p.images[0]}" alt="${escapeHtml(p.title)} image" loading="lazy" decoding="async"/></div>
-            <div class="thumbs" id="thumbRow"></div>
-          </div>
-          <div class="modal-right">
-            <h2 style="margin:0 0 6px">${escapeHtml(p.title)}</h2>
-            <div style="font-weight:700;color:var(--accent);">${money(p)}</div>
-            <p style="color:var(--muted);margin:8px 0">${escapeHtml(p.desc)}</p>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:auto">
-              <button class="msg-btn" id="msgBtn">Message seller</button>
-              <button class="msg-btn" id="closeBtn" style="background:transparent;color:var(--accent);border:1px solid rgba(0,0,0,0.06)">Close</button>
-            </div>
-          </div>
-        </div>
-      `;
-      root.appendChild(bd);
-
-      // thumbs
-      const thumbRow = bd.querySelector('#thumbRow');
-      p.images.forEach((src,i)=>{ const im=document.createElement('img'); im.src=src; if(i===0) im.className='active'; im.addEventListener('click',()=>{ bd.querySelector('.carousel img').src=src; thumbRow.querySelectorAll('img').forEach(x=>x.classList.remove('active')); im.classList.add('active'); }); thumbRow.appendChild(im); });
-
-      // handlers
-      bd.addEventListener('click',e=>{ if(e.target===bd) root.innerHTML=''; });
-      bd.querySelector('#closeBtn').addEventListener('click',()=>root.innerHTML='');
-      bd.querySelector('#msgBtn').addEventListener('click',()=>messageSeller(p.id));
-
-      // trap focus for accessibility (simple)
-      const modalEl = bd.querySelector('.modal'); setTimeout(()=>modalEl.querySelector('button, a, input')?.focus(),50);
-    }
-
-    function messageSeller(id){
-      const p=products.find(x=>x.id===id); if(!p) return;
-      const phone='918882896221'; // replace
-      const text=encodeURIComponent(`Hi, I'm interested in ${p.title} - INR ${p.price}.`);
-      const url=`https://wa.me/${phone}?text=${text}`;
-      window.open(url,'_blank');
-    }
-
-    // small helper funcs
-    function escapeHtml(s){return (s||'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);}
-    function truncate(s,n){ return s.length>n? s.slice(0,n-1)+'…': s }
-
-    // initial render
-    render(products);
-
-    // fab quick action
-    document.getElementById('fab').addEventListener('click',()=>{ document.getElementById('q').focus(); window.scrollTo({top:0,behavior:'smooth'}); });
-
-    // Performance tips built-in: use lazy image decoding and loading, small touch targets, single-column layout on narrow screens.
-  </script>
+</header>
+<div class="controls" role="region" aria-label="search and filters">
+  <div class="search" role="search">
+    <input id="q" type="search" inputmode="search" placeholder="Search e.g. 'Amla'" aria-label="Search products" />
+  </div>
+  <select id="category" class="select" aria-label="Filter by category">
+    <option value="all">All categories</option>
+  </select>
+</div>
+<main class="grid" id="grid" aria-live="polite"></main>
+<button class="fab" id="fab">+ Add</button>
+<section class="articles">
+  <h2>Ayurveda Articles & Tips</h2>
+  <article class="article-card">
+    <h4>Top 5 Herbs to Boost Immunity Naturally</h4>
+    <p>Learn how Chyawanprash, Ashwagandha, and Amla can naturally strengthen your immunity.</p>
+  </article>
+  <article class="article-card">
+    <h4>Triphala: The Ayurvedic Digestive Secret</h4>
+    <p>Discover the benefits of Triphala powder for digestion and detoxification.</p>
+  </article>
+  <article class="article-card">
+    <h4>Neem and Skin Health: A Natural Remedy</h4>
+    <p>How Neem tablets and oils help maintain healthy, glowing skin.</p>
+  </article>
+</section>
+</div>
+<div id="modalRoot"></div>
+<script>
+const products=[
+{id:1,title:'Chyawanprash',price:350,unit:'INR',category:'Health Tonic',desc:'Boosts immunity & energy. Traditional chyawanprash mix.',images:["https://picsum.photos/seed/chyawanprash/1200/800"]},
+{id:2,title:'Ashwagandha Capsules',price:499,unit:'INR',category:'Supplements',desc:'Supports stress relief & vitality.',images:["https://picsum.photos/seed/ashwagandha/1200/800"]},
+{id:3,title:'Triphala Powder',price:199,unit:'INR',category:'Digestive Care',desc:'Promotes healthy digestion & detox.',images:["https://picsum.photos/seed/triphala/1200/800"]},
+{id:4,title:'Neem Tablets',price:299,unit:'INR',category:'Skin Care',desc:'Natural support for skin health.',images:["https://picsum.photos/seed/neem/1200/800"]},
+{id:5,title:'Amla Juice',price:220,unit:'INR',category:'Health Tonic',desc:'Vitamin C rich tonic for immunity.',images:["https://picsum.photos/seed/amla/1200/800"]},
+{id:6,title:'Brahmi Syrup',price:280,unit:'INR',category:'Memory Booster',desc:'Supports memory & concentration.',images:["https://picsum.photos/seed/brahmi/1200/800"]}
+];
+const grid=document.getElementById('grid');
+function render(items){grid.innerHTML='';items.forEach(p=>{
+const card=document.createElement('article');card.className='card';
+card.innerHTML=`<div class="thumb"><img src="${p.images[0]}" alt="${p.title}" loading="lazy"></div>
+<h3>${p.title}</h3><div class="meta"><div>${p.category}</div><div class="price">${p.unit} ${p.price}</div></div>
+<p>${p.desc}</p>`;
+grid.appendChild(card);});}
+render(products);
+</script>
 </body>
 </html>
