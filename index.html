@@ -2,190 +2,227 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ayurvedic Medicines Catalog</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Ayurvedic Catalog — Mobile Friendly</title>
+  <meta name="theme-color" content="#25D366">
   <style>
     :root{
-      --bg: #f6f7f8;
-      --card: #fff;
+      --bg:#fbfcfb;
+      --card:#ffffff;
       --muted:#6b7280;
       --accent:#25D366;
-      --glass: rgba(255,255,255,0.6);
-      --shadow: 0 6px 20px rgba(16,24,40,0.08);
-      --radius: 12px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --accent-2:#1aa856;
+      --glass:rgba(255,255,255,0.6);
+      --shadow:0 8px 24px rgba(2,6,23,0.06);
+      --radius:14px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-size:16px;
     }
-    body{
-      margin:0;
-      background: linear-gradient(180deg, #eef2f5 0%, var(--bg) 100%);
-      color:#111827;
-      padding:20px;
-    }
-    .topbar{display:flex;align-items:center;gap:12px;max-width:1100px;margin:0 auto 18px;}
-    .app-badge{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#1aa856);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;box-shadow:var(--shadow)}
-    .title{font-size:18px;font-weight:600;color:#0f172a}
-    .subtitle{color:var(--muted);font-size:13px}
-    .controls{display:flex;gap:8px;margin:14px auto 22px;max-width:1100px}
+
+    /* page */
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#f7faf6 0%,var(--bg) 100%);color:#0f172a;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:1100px;margin:0 auto;padding:18px}
+
+    /* header */
+    header{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;box-shadow:var(--shadow)}
+    h1{font-size:18px;margin:0}
+    p.lead{margin:2px 0 0;color:var(--muted);font-size:13px}
+
+    /* controls */
+    .controls{display:flex;gap:8px;margin:14px 0}
     .search{flex:1;display:flex;align-items:center;background:var(--card);padding:10px;border-radius:999px;box-shadow:var(--shadow)}
-    .search input{border:0;outline:0;font-size:14px;width:100%;background:transparent}
-    .select, .sort{background:var(--card);padding:8px 12px;border-radius:10px;box-shadow:var(--shadow);font-size:14px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;max-width:1100px;margin:0 auto}
-    .card{background:var(--card);border-radius:14px;padding:10px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;overflow:hidden}
-    .thumb{position:relative;border-radius:10px;overflow:hidden;height:160px;background:#eee}
-    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .price-tag{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,0.7);color:#fff;padding:6px 8px;border-radius:8px;font-weight:700;font-size:14px}
-    .card h3{margin:0;font-size:15px}
-    .meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
-    .badge{background:var(--glass);padding:6px 8px;border-radius:999px;border:1px solid rgba(0,0,0,0.04);font-size:12px}
-    .fab{position:fixed;right:24px;bottom:24px;background:var(--accent);color:white;padding:14px 16px;border-radius:999px;box-shadow:0 12px 30px rgba(37,211,102,0.24);font-weight:700;border:0;cursor:pointer}
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:40;}
-    .modal{width:100%;max-width:920px;background:var(--card);border-radius:14px;padding:18px;box-shadow:0 20px 45px rgba(2,6,23,0.35);display:flex;gap:20px}
+    .search input{border:0;outline:0;font-size:15px;width:100%;background:transparent}
+    .select{background:var(--card);padding:8px 12px;border-radius:10px;box-shadow:var(--shadow);font-size:14px}
+
+    /* grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .card{background:var(--card);border-radius:12px;padding:10px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;min-height:180px}
+    .card .thumb{height:140px;border-radius:10px;overflow:hidden;background:#eee}
+    .card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .card h3{font-size:15px;margin:4px 0}
+    .meta{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
+    .price{font-weight:700;color:var(--accent)}
+
+    /* touch targets */
+    button, .btn{touch-action:manipulation;border:0;padding:10px 12px;border-radius:10px;cursor:pointer}
+
+    /* floating action (mobile-friendly placement) */
+    .fab{position:fixed;right:14px;bottom:18px;background:var(--accent);color:white;padding:12px 14px;border-radius:999px;box-shadow:0 12px 30px rgba(37,211,102,0.18);font-weight:700;border:0;z-index:40}
+
+    /* modal as bottom-sheet on small screens */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(3,7,18,0.45);display:flex;align-items:flex-end;justify-content:center;padding:0 12px 12px;z-index:60}
+    .modal{width:100%;max-width:920px;background:var(--card);border-radius:14px;padding:14px;box-shadow:0 20px 45px rgba(2,6,23,0.28);display:flex;gap:12px}
     .modal-left{flex:1}
-    .modal-right{width:360px;display:flex;flex-direction:column;gap:12px}
-    .carousel{height:360px;border-radius:10px;overflow:hidden;background:#000}
+    .carousel{height:260px;border-radius:10px;overflow:hidden;background:#000}
     .carousel img{width:100%;height:100%;object-fit:cover}
-    .thumbs{display:flex;gap:8px;margin-top:8px}
-    .thumbs img{width:56px;height:44px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
+    .thumbs{display:flex;gap:8px;margin-top:8px;overflow:auto}
+    .thumbs img{width:72px;height:52px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
     .thumbs img.active{border-color:var(--accent)}
-    .product-title{font-size:20px;margin:0}
-    .product-price{font-size:18px;font-weight:700;color:var(--accent)}
-    .desc{color:var(--muted);font-size:14px}
-    .msg-btn{background:linear-gradient(90deg,var(--accent),#1aa856);color:#fff;border:0;padding:12px;border-radius:10px;font-weight:700;cursor:pointer}
-    @media (max-width:840px){.modal{flex-direction:column}.modal-right{width:100%}.carousel{height:260px}}
+    .modal-right{width:320px;display:flex;flex-direction:column;gap:10px}
+
+    /* responsive tweaks */
+    @media (max-width:720px){
+      .wrap{padding:12px}
+      .controls{flex-direction:column;gap:10px}
+      .select{width:100%}
+      .grid{grid-template-columns:1fr;gap:10px}
+      .card .thumb{height:180px}
+      .modal{flex-direction:column;padding:12px;border-radius:12px}
+      .modal-right{width:100%}
+      .carousel{height:320px}
+      .thumbs img{width:64px;height:46px}
+      .logo{width:40px;height:40px}
+      h1{font-size:16px}
+      .fab{right:12px;bottom:12px;padding:10px 12px}
+    }
+
+    /* accessibility focus */
+    .card:focus-within{outline:3px solid rgba(37,211,102,0.14)}
+
+    /* subtle image placeholder loading effect */
+    img{background:linear-gradient(90deg,#f3f4f6,#e9eef0,#f3f4f6);}
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="app-badge">AM</div>
-    <div>
-      <div class="title">Ayurvedic Medicines Catalog</div>
-      <div class="subtitle">Explore natural remedies and herbal products</div>
+  <div class="wrap">
+    <header>
+      <div class="logo">AM</div>
+      <div>
+        <h1>Ayurvedic Catalog</h1>
+        <p class="lead">Herbal remedies & supplements — tap to view details</p>
+      </div>
+    </header>
+
+    <div class="controls" role="region" aria-label="search and filters">
+      <div class="search" role="search">
+        <input id="q" type="search" inputmode="search" placeholder="Search e.g. 'Amla'" aria-label="Search products" />
+      </div>
+      <select id="category" class="select" aria-label="Filter by category">
+        <option value="all">All categories</option>
+      </select>
     </div>
+
+    <main class="grid" id="grid" aria-live="polite"></main>
+    <button class="fab" id="fab">+ Add</button>
   </div>
 
-  <div class="controls">
-    <div class="search">
-      <input id="q" placeholder="Search medicines, e.g. 'Chyawanprash'" />
-    </div>
-    <select id="category" class="select">
-      <option value="all">All categories</option>
-    </select>
-    <select id="sort" class="sort">
-      <option value="default">Sort: Featured</option>
-      <option value="price-asc">Price ↑</option>
-      <option value="price-desc">Price ↓</option>
-      <option value="name">Name</option>
-    </select>
-  </div>
-
-  <main class="grid" id="grid"></main>
   <div id="modalRoot"></div>
 
   <script>
+    // Data - update with real products later
     const products = [
-      {id:1,title:'Chyawanprash',price:350,unit:'INR',category:'Health Tonic',desc:'Boosts immunity and energy with a blend of herbs.',images:["https://picsum.photos/seed/chyawanprash/900/600"],badge:'Best Seller'},
-      {id:2,title:'Ashwagandha Capsules',price:499,unit:'INR',category:'Supplements',desc:'Helps reduce stress and improve vitality.',images:["https://picsum.photos/seed/ashwagandha/900/600"],badge:'Popular'},
-      {id:3,title:'Triphala Powder',price:199,unit:'INR',category:'Digestive Care',desc:'Natural remedy for digestion and detoxification.',images:["https://picsum.photos/seed/triphala/900/600"],badge:''},
-      {id:4,title:'Neem Tablets',price:299,unit:'INR',category:'Skin Care',desc:'Supports healthy skin and detox.',images:["https://picsum.photos/seed/neem/900/600"],badge:''},
-      {id:5,title:'Amla Juice',price:220,unit:'INR',category:'Health Tonic',desc:'Rich source of Vitamin C for immunity.',images:["https://picsum.photos/seed/amla/900/600"],badge:'New'},
-      {id:6,title:'Brahmi Syrup',price:280,unit:'INR',category:'Memory Booster',desc:'Enhances memory and concentration.',images:["https://picsum.photos/seed/brahmi/900/600"],badge:''}
+      {id:1,title:'Chyawanprash',price:350,unit:'INR',category:'Health Tonic',desc:'Boosts immunity & energy. Traditional chyawanprash mix.',images:["https://picsum.photos/seed/chyawanprash/1200/800"],badge:'Best Seller'},
+      {id:2,title:'Ashwagandha Capsules',price:499,unit:'INR',category:'Supplements',desc:'Supports stress relief & vitality.',images:["https://picsum.photos/seed/ashwagandha/1200/800"],badge:'Popular'},
+      {id:3,title:'Triphala Powder',price:199,unit:'INR',category:'Digestive Care',desc:'Promotes healthy digestion & detox.',images:["https://picsum.photos/seed/triphala/1200/800"],badge:''},
+      {id:4,title:'Neem Tablets',price:299,unit:'INR',category:'Skin Care',desc:'Natural support for skin health.',images:["https://picsum.photos/seed/neem/1200/800"],badge:''},
+      {id:5,title:'Amla Juice',price:220,unit:'INR',category:'Health Tonic',desc:'Vitamin C rich tonic for immunity.',images:["https://picsum.photos/seed/amla/1200/800"],badge:'New'},
+      {id:6,title:'Brahmi Syrup',price:280,unit:'INR',category:'Memory Booster',desc:'Supports memory & concentration.',images:["https://picsum.photos/seed/brahmi/1200/800"],badge:''}
     ];
 
+    // build categories
     const categoryEl = document.getElementById('category');
     const cats = ['all', ...new Set(products.map(p=>p.category))];
-    cats.forEach(c=>{if(c==='all') return;});
-    cats.forEach(c=>{const opt = document.createElement('option');opt.value=c;opt.textContent=c;categoryEl.appendChild(opt);});
+    cats.forEach(c=>{ if(c==='all') return; });
+    cats.forEach(c=>{ const opt=document.createElement('option'); opt.value=c; opt.textContent=c; categoryEl.appendChild(opt); });
 
     const grid = document.getElementById('grid');
-    function money(p){return p.unit+' '+p.price}
+    function money(p){return `${p.unit} ${p.price}`}
+
     function render(items){
       grid.innerHTML='';
       items.forEach(prod=>{
-        const el = document.createElement('article');el.className='card';
-        el.innerHTML = `
-          <div class="thumb">
-            <img src="${prod.images[0]}" alt="${escapeHtml(prod.title)}"/>
-            <div class="price-tag">${money(prod)}</div>
-          </div>
+        const card = document.createElement('article'); card.className='card'; card.tabIndex=0;
+        card.innerHTML = `
+          <div class="thumb" aria-hidden="true"><img src="${prod.images[0]}" alt="${escapeHtml(prod.title)}" loading="lazy" decoding="async" /></div>
           <div>
             <h3>${escapeHtml(prod.title)}</h3>
-            <div class="meta">
-              <div class="badge">${escapeHtml(prod.category)}</div>
-              <button class="view" data-id="${prod.id}" style="background:transparent;border:0;color:var(--accent);font-weight:700;cursor:pointer">View</button>
-            </div>
+            <div class="meta"><div class="badge">${escapeHtml(prod.category)}</div><div class="price">${money(prod)}</div></div>
+            <p style="margin:8px 0 0;color:var(--muted);font-size:13px">${escapeHtml(truncate(prod.desc,80))}</p>
+            <div style="display:flex;gap:8px;margin-top:10px"><button class="btn view" data-id="${prod.id}" aria-label="View ${escapeHtml(prod.title)} details">View</button><button class="btn buy" data-id="${prod.id}" aria-label="Message seller about ${escapeHtml(prod.title)}">Message</button></div>
           </div>
         `;
-        grid.appendChild(el);
+        grid.appendChild(card);
       });
-      grid.querySelectorAll('.view').forEach(btn=>btn.addEventListener('click',e=>{
-        const id = Number(e.currentTarget.dataset.id);openModal(id);
-      }));
+      attachCardListeners();
     }
 
+    function attachCardListeners(){
+      grid.querySelectorAll('.view').forEach(b=>b.addEventListener('click',e=>openModal(Number(e.currentTarget.dataset.id))));
+      grid.querySelectorAll('.buy').forEach(b=>b.addEventListener('click',e=>messageSeller(Number(e.currentTarget.dataset.id))));
+    }
+
+    // search & filter
     document.getElementById('q').addEventListener('input',applyFilters);
-    document.getElementById('category').addEventListener('change',applyFilters);
-    document.getElementById('sort').addEventListener('change',applyFilters);
+    categoryEl.addEventListener('change',applyFilters);
 
     function applyFilters(){
-      const q = document.getElementById('q').value.trim().toLowerCase();
-      const c = document.getElementById('category').value;
-      const sort = document.getElementById('sort').value;
-      let out = products.filter(p=>{
+      const q=document.getElementById('q').value.trim().toLowerCase();
+      const c=categoryEl.value;
+      const out = products.filter(p=>{
         const okQ = !q || (p.title+" "+p.desc+" "+p.category).toLowerCase().includes(q);
         const okC = c==='all' || p.category===c;
         return okQ && okC;
       });
-      if(sort==='price-asc') out.sort((a,b)=>a.price-b.price);
-      if(sort==='price-desc') out.sort((a,b)=>b.price-a.price);
-      if(sort==='name') out.sort((a,b)=>a.title.localeCompare(b.title));
       render(out);
     }
 
+    // modal and message functions
     function openModal(id){
-      const p = products.find(x=>x.id===id); if(!p) return;
-      const root = document.getElementById('modalRoot');
-      root.innerHTML = '';
-      const bd = document.createElement('div');bd.className='modal-backdrop';
+      const p=products.find(x=>x.id===id); if(!p) return;
+      const root=document.getElementById('modalRoot'); root.innerHTML='';
+      const bd=document.createElement('div'); bd.className='modal-backdrop';
       bd.innerHTML = `
-        <div class="modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-label="Product details: ${escapeHtml(p.title)}">
           <div class="modal-left">
-            <div class="carousel" id="bigimg"><img src="${p.images[0]}" alt="${escapeHtml(p.title)}"></div>
+            <div class="carousel"><img src="${p.images[0]}" alt="${escapeHtml(p.title)} image" loading="lazy" decoding="async"/></div>
             <div class="thumbs" id="thumbRow"></div>
           </div>
           <div class="modal-right">
-            <h2 class="product-title">${escapeHtml(p.title)}</h2>
-            <div class="product-price">${money(p)}</div>
-            <div class="desc">${escapeHtml(p.desc)}</div>
-            <div style="flex:1"></div>
-            <button class="msg-btn" id="msgBtn">Message seller</button>
-            <button class="msg-btn" id="closeBtn" style="background:transparent;color:var(--accent);border:1px solid rgba(0,0,0,0.06)">Close</button>
+            <h2 style="margin:0 0 6px">${escapeHtml(p.title)}</h2>
+            <div style="font-weight:700;color:var(--accent);">${money(p)}</div>
+            <p style="color:var(--muted);margin:8px 0">${escapeHtml(p.desc)}</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:auto">
+              <button class="msg-btn" id="msgBtn">Message seller</button>
+              <button class="msg-btn" id="closeBtn" style="background:transparent;color:var(--accent);border:1px solid rgba(0,0,0,0.06)">Close</button>
+            </div>
           </div>
         </div>
       `;
       root.appendChild(bd);
 
+      // thumbs
       const thumbRow = bd.querySelector('#thumbRow');
-      p.images.forEach((src,i)=>{
-        const im = document.createElement('img');im.src=src; if(i===0) im.className='active';
-        im.addEventListener('click',()=>{
-          bd.querySelector('#bigimg img').src = src;
-          thumbRow.querySelectorAll('img').forEach(x=>x.classList.remove('active'));im.classList.add('active');
-        });
-        thumbRow.appendChild(im);
-      });
+      p.images.forEach((src,i)=>{ const im=document.createElement('img'); im.src=src; if(i===0) im.className='active'; im.addEventListener('click',()=>{ bd.querySelector('.carousel img').src=src; thumbRow.querySelectorAll('img').forEach(x=>x.classList.remove('active')); im.classList.add('active'); }); thumbRow.appendChild(im); });
 
-      bd.addEventListener('click', (e)=>{ if(e.target===bd) root.innerHTML=''; });
-      bd.querySelector('#closeBtn').addEventListener('click', ()=>root.innerHTML='');
-      bd.querySelector('#msgBtn').addEventListener('click', ()=>{
-        const phone = '919999999999';
-        const text = encodeURIComponent(`Hello, I'm interested in your product: ${p.title}`);
-        const url = `https://wa.me/${phone}?text=${text}`;
-        window.open(url,'_blank');
-      });
+      // handlers
+      bd.addEventListener('click',e=>{ if(e.target===bd) root.innerHTML=''; });
+      bd.querySelector('#closeBtn').addEventListener('click',()=>root.innerHTML='');
+      bd.querySelector('#msgBtn').addEventListener('click',()=>messageSeller(p.id));
+
+      // trap focus for accessibility (simple)
+      const modalEl = bd.querySelector('.modal'); setTimeout(()=>modalEl.querySelector('button, a, input')?.focus(),50);
     }
 
+    function messageSeller(id){
+      const p=products.find(x=>x.id===id); if(!p) return;
+      const phone='918882896221'; // replace
+      const text=encodeURIComponent(`Hi, I'm interested in ${p.title} - INR ${p.price}.`);
+      const url=`https://wa.me/${phone}?text=${text}`;
+      window.open(url,'_blank');
+    }
+
+    // small helper funcs
+    function escapeHtml(s){return (s||'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);}
+    function truncate(s,n){ return s.length>n? s.slice(0,n-1)+'…': s }
+
+    // initial render
     render(products);
-    function escapeHtml(s){return (s||'').replace(/[&<>\"]/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;' }[c]));}
+
+    // fab quick action
+    document.getElementById('fab').addEventListener('click',()=>{ document.getElementById('q').focus(); window.scrollTo({top:0,behavior:'smooth'}); });
+
+    // Performance tips built-in: use lazy image decoding and loading, small touch targets, single-column layout on narrow screens.
   </script>
 </body>
 </html>
