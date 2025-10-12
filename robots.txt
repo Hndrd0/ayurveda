@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hndrd0.github.io/ayurveda/sitemap.xml
+
+# Disallow nothing – everything open for indexing.
+# Optional crawl-delay for bots (in seconds)
+Crawl-delay: 10
